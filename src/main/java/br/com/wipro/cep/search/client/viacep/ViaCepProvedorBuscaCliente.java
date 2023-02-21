@@ -1,5 +1,7 @@
 package br.com.wipro.cep.search.client.viacep;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -28,7 +30,17 @@ public class ViaCepProvedorBuscaCliente implements IProvedorBuscaEnderecoCliente
 	@Override
 	public ViaCepProvedorBuscaResposta buscarPorCep(String cep) throws ProvedorBuscaException {
 		try {
-			StringBuilder urlCompleta = new StringBuilder().append(url).append("/").append(cep).append("/json");
+			String cepSemFormat =  Optional.ofNullable(cep) //
+					.map(c -> c.replaceAll("[^0-9]", "")) //
+					.filter(c -> c.length() == 8) //
+					.orElseThrow(() -> new CepInvalidoProvedorBuscaException());
+
+			StringBuilder urlCompleta = new StringBuilder() //
+					.append(url) //
+					.append("/") //
+					.append(cepSemFormat) //
+					.append("/json");
+
 			ViaCepProvedorBuscaResposta resp = restTemplate.getForObject(urlCompleta.toString(),
 					ViaCepProvedorBuscaResposta.class);
 
