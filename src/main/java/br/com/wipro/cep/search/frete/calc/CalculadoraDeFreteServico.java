@@ -2,14 +2,14 @@ package br.com.wipro.cep.search.frete.calc;
 
 import java.math.BigDecimal;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import br.com.wipro.cep.search.client.IProvedorBuscaEnderecoCliente;
 import br.com.wipro.cep.search.client.error.ProvedorBuscaException;
 import br.com.wipro.cep.search.client.viacep.ViaCepProvedorBuscaResposta;
 import br.com.wipro.cep.search.server.ConsultarEnderecoResposta;
 
-@Service
+@Component
 public class CalculadoraDeFreteServico implements ICalculadoraDeFreteServico {
 
 	private final ICalculadoraDeFrete calculadora;
