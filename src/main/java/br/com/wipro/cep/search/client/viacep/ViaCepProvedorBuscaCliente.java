@@ -18,12 +18,11 @@ import br.com.wipro.cep.search.client.error.ProvedorBuscaException;
 @Component
 public class ViaCepProvedorBuscaCliente implements IProvedorBuscaEnderecoCliente {
 
-	private final String url;
+
+	private static final String URL = "https://viacep.com.br/ws";
 	private final RestTemplate restTemplate;
 
-	public ViaCepProvedorBuscaCliente(@Value("${cliente.url.viacep}") String url,
-			@Autowired RestTemplate restTemplate) {
-		this.url = url;
+	public ViaCepProvedorBuscaCliente(@Autowired RestTemplate restTemplate) {
 		this.restTemplate = restTemplate;
 	}
 
@@ -36,7 +35,7 @@ public class ViaCepProvedorBuscaCliente implements IProvedorBuscaEnderecoCliente
 					.orElseThrow(() -> new CepInvalidoProvedorBuscaException());
 
 			StringBuilder urlCompleta = new StringBuilder() //
-					.append(url) //
+					.append(URL) //
 					.append("/") //
 					.append(cepSemFormat) //
 					.append("/json");
